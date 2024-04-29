@@ -7,9 +7,9 @@
         {{ item.taskname }}
       </span>
       <input maxlength="20" class="editInput" v-if="item.isEditing" v-model="item.taskname"
-        @blur="emit('saveEdit', item.id)" @keyup.enter="emit('saveEdit', item.id)">
+        @blur="save(item.id, item.taskname)" @keyup.enter="save(item.id, item.taskname)">
       <button class="delBtn" @click="emit('delTask', item.id)">刪除</button>
-      <button class="editBtn" @click="emit('startEdit', item.id)">編輯</button>
+      <button class="editBtn" @click="edit(item.id, item.taskname)">編輯</button>
     </li>
   </div>
 </template>
@@ -37,6 +37,14 @@ const isAll = computed({
     emit('changeAll', val)
   },
 })
+
+const save = (id, taskName) => {
+  emit('saveEdit', id, taskName)
+}
+
+const edit = (id, taskName) => {
+  emit('startEdit', id, taskName)
+}
 
 </script>
 

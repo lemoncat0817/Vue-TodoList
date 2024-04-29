@@ -106,23 +106,34 @@ const clearList = () => {
   handleSearchTask(keyword.value)
 }
 //編輯todo
-const startEditing = (id) => {
+const startEditing = (id, taskName) => {
   if (!Array.isArray(list.value)) {
     // 如果 props.list 不是陣列，將其轉換為陣列
     list.value = [list.value];
   }
-  const editList = list.value.find(item => item.id === id)
-  editList.isEditing = !editList.isEditing
+  if (taskName === '') {
+    return
+  } else {
+    const editList = list.value.find(item => item.id === id)
+    editList.isEditing = !editList.isEditing
+  }
 }
+
 //完成編輯todo
-const handleEdit = (id) => {
+const handleEdit = (id, taskName) => {
   if (!Array.isArray(list.value)) {
     // 如果 props.list 不是陣列，將其轉換為陣列
     list.value = [list.value];
   }
-  const editList = list.value.find(item => item.id === id)
-  editList.isEditing = false
-  handleSearchTask(keyword.value)
+  if (taskName === '') {
+    return
+  } else {
+    const editList = list.value.find(item => item.id === id)
+    editList.isEditing = false
+    if (keyword.value.length > 0) {
+      handleSearchTask(keyword.value)
+    }
+  }
 }
 
 const handleSearchTask = (searchText) => {
